@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Jarumi ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, 'Times New Roman', serif;
+            background: linear-gradient(135deg, #1a0b12, #3b1425, #6b2439);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Fondo con brillo */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 105, 150, 0.15);
+            filter: blur(100px);
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 180, 200, 0.1);
+            filter: blur(100px);
+            border-radius: 50%;
+            bottom: 5%;
+            right: 5%;
+            z-index: -1;
+        }
+
+        /* Pantalla inicial */
+        .inicio {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            transition: 1s ease;
+        }
+
+        .inicio h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 15px;
+            animation: aparecer 2s ease;
+        }
+
+        .inicio p {
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 35px;
+            animation: aparecer 2s ease 0.3s backwards;
+        }
+
+        .boton {
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            background: #fff;
+            color: #7b2945;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,.3);
+            transition: .3s;
+            animation: aparecer 2s ease 0.6s backwards;
+        }
+
+        .boton:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(255,255,255,.2);
+        }
+
+        /* Carta */
+        .carta-container {
+            display: none;
+            min-height: 100vh;
+            padding: 60px 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .carta {
+            width: min(700px, 100%);
+            background: rgba(255,255,255,0.95);
+            color: #3b2028;
+            border-radius: 25px;
+            padding: clamp(30px, 7vw, 60px);
+            box-shadow: 0 25px 80px rgba(0,0,0,.4);
+            animation: cartaAparecer 1.5s ease;
+            position: relative;
+        }
+
+        .carta::before {
+            content: "♥";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 25px;
+            color: #c94f73;
+            opacity: .7;
+        }
+
+        .carta h2 {
+            text-align: center;
+            color: #a83255;
+            font-size: clamp(2rem, 7vw, 3rem);
+            margin-bottom: 35px;
+        }
+
+        .carta p {
+            font-size: 1.08rem;
+            line-height: 1.9;
+            margin-bottom: 22px;
+        }
+
+        .firma {
+            margin-top: 35px;
+            text-align: right;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #a83255;
+        }
+
+        .corazon-final {
+            text-align: center;
+            font-size: 35px;
+            margin-top: 30px;
+            animation: latido 1.5s infinite;
+        }
+
+        /* Corazones flotando */
+        .corazon {
+            position: fixed;
+            bottom: -30px;
+            font-size: 20px;
+            animation: subir linear forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cartaAparecer {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes latido {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes subir {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Celulares */
+        @media (max-width: 600px) {
+
+            .carta {
+                padding: 30px 25px;
+                border-radius: 20px;
+            }
+
+            .carta p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .inicio h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PANTALLA INICIAL -->
+    <section class="inicio" id="inicio">
+
+        <h1>Para Jarumi ❤️</h1>
+
+        <p>
+            Hay algo que quería decirte...
+        </p>
+
+        <button class="boton" onclick="abrirCarta()">
+            Abrir mi carta
+        </button>
+
+    </section>
+
+
+    <!-- CARTA -->
+    <section class="carta-container" id="cartaContainer">
+
+        <div class="carta">
+
+            <h2>Para ti, Jarumi ❤️</h2>
+
+            <p>
+                No sé exactamente en qué momento empezaste a
+                convertirte en alguien tan especial para mí.
+                Pero sí sé que desde que empezamos a conocernos,
+                hay algo que me gusta mucho de estar contigo.
+            </p>
+
+            <p>
+                Me gusta pasar tiempo contigo. Me gusta hablar,
+                reírnos, caminar, compartir cosas pequeñas y
+                simplemente estar juntos.
+            </p>
+
+            <p>
+                Y creo que lo que más me gusta es cómo me siento
+                cuando estoy contigo.
+            </p>
+
+            <p>
+                Me haces sentir feliz, pero también tranquilo.
+                Y para mí eso vale muchísimo, porque no con
+                cualquier persona uno puede sentirse así.
+            </p>
+
+            <p>
+                Hay momentos que quizás para otras personas
+                parecerían simples o normales, pero que para mí
+                terminan siendo especiales simplemente porque
+                los estoy viviendo contigo.
+            </p>
+
+            <p>
+                Me gusta conocerte cada vez un poco más,
+                descubrir tu forma de pensar, escuchar tus
+                historias y compartir las mías contigo.
+            </p>
+
+            <p>
+                No sé qué nos depare el futuro, y tampoco quiero
+                apresurar las cosas. Solo quiero disfrutar lo que
+                estamos construyendo y seguir conociéndote de
+                verdad.
+            </p>
+
+            <p>
+                Pero quería que supieras algo:
+                <strong>me haces muy feliz.</strong>
+            </p>
+
+            <p>
+                Y cada vez que estamos juntos, me voy con esa
+                sensación bonita de haber pasado un buen momento
+                con alguien que realmente me importa.
+            </p>
+
+            <p>
+                Gracias por cada momento, por las conversaciones,
+                por las risas y por la tranquilidad que me das
+                simplemente siendo tú.
+            </p>
+
+            <p>
+                Me gusta lo que estamos construyendo, Jarumi.
+                ❤️
+            </p>
+
+            <div class="firma">
+                Con cariño,<br>
+                Andrew
+            </div>
+
+            <div class="corazon-final">
+                ❤️
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        function abrirCarta() {
+
+            const inicio = document.getElementById("inicio");
+            const carta = document.getElementById("cartaContainer");
+
+            inicio.style.display = "none";
+            carta.style.display = "flex";
+
+            crearCorazones();
+        }
+
+
+        function crearCorazones() {
+
+            setInterval(() => {
+
+                const corazon = document.createElement("div");
+
+                corazon.classList.add("corazon");
+
+                const corazones = ["❤️", "💕", "💗", "♥"];
+
+                corazon.innerHTML =
+                    corazones[Math.floor(Math.random() * corazones.length)];
+
+                corazon.style.left = Math.random() * 100 + "vw";
+
+                corazon.style.animationDuration =
+                    (5 + Math.random() * 5) + "s";
+
+                corazon.style.fontSize =
+                    (15 + Math.random() * 20) + "px";
+
+                document.body.appendChild(corazon);
+
+                setTimeout(() => {
+                    corazon.remove();
+                }, 10000);
+
+            }, 700);
+        }
+
+    </script>
+
+</body>
+</html>
